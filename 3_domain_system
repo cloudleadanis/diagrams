@@ -1,0 +1,70 @@
+workspace {
+
+    model {
+        // Define the users
+        person User "User" "An external user interacting with the system."
+
+        // Domain 1
+        softwareSystem Domain1 "Domain 1" "The first domain." {
+            container Component1 "Component 1" "A component in Domain 1."
+            container Component2 "Component 2" "Another component in Domain 1."
+        }
+        User -> Component1 "Interacts with"
+
+        // Domain 2
+        softwareSystem Domain2 "Domain 2" "The second domain." {
+            container Component3 "Component 3" "A component in Domain 2."
+            container Component4 "Component 4" "Another component in Domain 2."
+        }
+        Component1 -> Component3 "Sends data to"
+        Component2 -> Component4 "Communicates with"
+
+        // Domain 3
+        softwareSystem Domain3 "Domain 3" "The third domain." {
+            container Component5 "Component 5" "A component in Domain 3."
+            container Component6 "Component 6" "Another component in Domain 3."
+            container Component7 "Component 7" "A component in Domain 3."
+            container Component8 "Component 8" "Another component in Domain 3."
+            container Component9 "Component 9" "A component in Domain 3."
+            container Component10 "Component 10" "Another component in Domain 3."
+            container Database1 "Database 1" "A database in Domain 3." {
+                type = Database
+            }
+            container Database2 "Database 2" "Another database in Domain 3." {
+                type = Database
+            }
+        }
+        Component3 -> Component5 "Communicates with"
+        Component4 -> Component6 "Sends data to"
+        Component5 -> Database1 "Reads from"
+        Component6 -> Database2 "Writes to"
+        Component7 -> Database1 "Queries"
+        Component8 -> Database2 "Updates"
+        Component9 -> Component10 "Interacts with"
+
+    }
+
+    views {
+        // Create a system landscape view to show all domains
+        systemLandscape {
+            include *
+            autolayout lr
+        }
+
+        // Create a container view for each domain
+        container Domain1 {
+            include Domain1
+            autolayout lr
+        }
+        container Domain2 {
+            include Domain2
+            autolayout lr
+        }
+        container Domain3 {
+            include Domain3
+            autolayout lr
+        }
+    }
+
+    theme default
+}
